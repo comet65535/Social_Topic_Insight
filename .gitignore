@@ -1,0 +1,16 @@
+# 忽略Python字节码缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# 忽略环境配置文件
+.env
+#忽略日志
+logs/
+Social_Topic_Insight_3/logs/
+#忽略vue相关
+vue/word-cloud-visualization/dist/
+vue/word-cloud-visualization/node_modules/
+vue/word-cloud-visualization/.env
+#忽略VSCode配置文件
+.vscode/
