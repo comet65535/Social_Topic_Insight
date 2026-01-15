@@ -1,5 +1,3 @@
-卷 新加卷 的文件夹 PATH 列表
-卷序列号为 7E57-2BB2
 G:.
 │  main.py
 │  tree.txt

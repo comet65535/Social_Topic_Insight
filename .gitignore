@@ -20,3 +20,5 @@ vue/word-cloud-visualization/.vscode/
 # 文档与临时文件
 *.doc
 *.pdf
+tree.txt
+*.ignore
