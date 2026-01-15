@@ -150,24 +150,20 @@ graph LR
 
 ### 6.2 启动步骤
 
-1.  **配置环境**:
-    在根目录创建 `.env` 文件，填入 MongoDB 地址 , 微博cookie及 LLM API Key。
+1. **配置环境**:
+   在根目录创建 `.env` 文件，填入 MongoDB 地址 , 微博cookie及 LLM API Key。
 
-2.  **启动后端**:
-    ```bash
-    # 安装依赖
-    pip install -r requirements.txt
-    # 启动 FastAPI 服务
-    python Social_Topic_Insight_3\main.py
-    ```
+2. **启动后端**:
+   ```bash
+   # 安装依赖
+   pip install -r requirements.txt
+   # 启动 FastAPI 服务
+   python Social_Topic_Insight_3\main.py
+   ```
 
-3.  **启动前端**:
-    
-    ```bash
-    cd frontend
-    npm install
-    npm run dev
-    ```
-    
-4.  **访问系统**:
-    打开浏览器访问 `http://localhost:5173` 即可进入系统控制台。
+3. **启动前端**:
+
+   双击运行 vue-begin.bat 文件.
+
+4. **访问系统**:
+   打开浏览器访问 `http://localhost:5173` 即可进入系统控制台。
