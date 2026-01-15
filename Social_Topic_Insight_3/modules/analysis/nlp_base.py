@@ -44,11 +44,12 @@ class NLPProcessor:
 
         # 1. 加载 Embedding
         print(f">>> [NLP Core] Loading Embedding: {settings.EMBEDDING_MODEL}")
-        self.embedder = SentenceTransformer(settings.EMBEDDING_MODEL, device=self.device)
+        #shibing624/text2vec-base-chinese 把中文句子变成向量
+        self.embedder = SentenceTransformer(settings.EMBEDDING_MODEL, device=self.device) 
 
         # 2. 加载情感分析
-        # 这里硬编码模型名或从配置读均可，为了保持你原逻辑，这里硬编码你之前的模型名
         sentiment_model = "lxyuan/distilbert-base-multilingual-cased-sentiments-student"
+        #情感分析模型,打分（判断是积极、消极还是中性）
         print(f">>> [NLP Core] Loading Sentiment: {sentiment_model}")
         try:
             self.sentiment_pipe = pipeline(
