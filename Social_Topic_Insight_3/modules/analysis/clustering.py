@@ -45,7 +45,7 @@ class ClusterEngine:
         
         # 3. 聚类模型微调
         umap_model = UMAP(
-            n_neighbors=10, 
+            n_neighbors=15, 
             n_components=10, 
             min_dist=0.0, 
             metric='cosine', 
@@ -53,8 +53,8 @@ class ClusterEngine:
         )
         
         hdbscan_model = HDBSCAN(
-            min_cluster_size=3, 
-            min_samples=2,      
+            min_cluster_size=5, 
+            min_samples=3,      
             metric='euclidean', 
             cluster_selection_method='eom', 
             prediction_data=True
