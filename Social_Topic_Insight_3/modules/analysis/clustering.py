@@ -24,7 +24,7 @@ class ClusterEngine:
     def __init__(self):
         self.nlp = NLPProcessor()
         
-        # 1. 终极停用词表
+        # 1. 停用词表
         custom_stopwords = list(self.nlp.stopwords)
         custom_stopwords.extend([
             "视频", "内容", "查看", "全文", "展开", "链接", "网页", 
