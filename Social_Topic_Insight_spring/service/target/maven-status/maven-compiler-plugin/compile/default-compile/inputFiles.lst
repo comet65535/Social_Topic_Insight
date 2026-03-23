@@ -1,0 +1,11 @@
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\exception\GlobalExceptionHandler.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\config\RedisConfig.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\controller\TaskController.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\config\AiConfig.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\controller\AnalysisController.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\TopicApplication.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\service\LlmSummaryService.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\config\AsyncExecutorConfig.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\config\RabbitConfig.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\exception\BusinessException.java
+G:\Desktop\allCode\Social_Topic_Insight_spring\service\src\main\java\com\service\service\TaskService.java
