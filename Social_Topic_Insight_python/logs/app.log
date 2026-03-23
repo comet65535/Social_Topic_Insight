@@ -2186,3 +2186,230 @@ pika.exceptions.ChannelWrongStateError: Channel is closed.
 2026-03-23 17:14:55,738 - [INFO] - weibo.py:69 -    >>> [Weibo] '林心如怎么受得了霍建华这条牛仔裤' Saved: 5
 2026-03-23 17:14:58,885 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 中东战事来到危险临界点 (Mode: hot) ---
 2026-03-23 17:15:03,907 - [ERROR] - weibo.py:72 - [Weibo] Crawl error: HTTPSConnectionPool(host='s.weibo.com', port=443): Max retries exceeded with url: /weibo?q=%E4%B8%AD%E4%B8%9C%E6%88%98%E4%BA%8B%E6%9D%A5%E5%88%B0%E5%8D%B1%E9%99%A9%E4%B8%B4%E7%95%8C%E7%82%B9&Refer=SWeibo_box (Caused by ProtocolError('Connection aborted.', FileNotFoundError(2, 'No such file or directory')))
+2026-03-23 17:15:06,918 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 老中医离世后儿子上交460g罂粟壳 (Mode: hot) ---
+2026-03-23 17:15:11,968 - [ERROR] - weibo.py:72 - [Weibo] Crawl error: HTTPSConnectionPool(host='s.weibo.com', port=443): Max retries exceeded with url: /weibo?q=%E8%80%81%E4%B8%AD%E5%8C%BB%E7%A6%BB%E4%B8%96%E5%90%8E%E5%84%BF%E5%AD%90%E4%B8%8A%E4%BA%A4460g%E7%BD%82%E7%B2%9F%E5%A3%B3&Refer=SWeibo_box (Caused by ProtocolError('Connection aborted.', FileNotFoundError(2, 'No such file or directory')))
+2026-03-23 17:15:15,867 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 长期喝桶装水的人天塌了 (Mode: hot) ---
+2026-03-23 17:15:20,334 - [INFO] - weibo.py:69 -    >>> [Weibo] '长期喝桶装水的人天塌了' Saved: 5
+2026-03-23 17:15:23,877 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: Mate80风驰版首创仿生羽翼涡扇 (Mode: hot) ---
+2026-03-23 17:15:27,501 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279667063101142
+2026-03-23 17:15:27,510 - [INFO] - weibo.py:69 -    >>> [Weibo] 'Mate80风驰版首创仿生羽翼涡扇' Saved: 5
+2026-03-23 17:15:30,339 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 股市 (Mode: hot) ---
+2026-03-23 17:15:32,994 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279643531742291
+2026-03-23 17:15:32,995 - [INFO] - weibo.py:69 -    >>> [Weibo] '股市' Saved: 5
+2026-03-23 17:15:35,375 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 为什么拐卖儿童不能买卖同罪 (Mode: hot) ---
+2026-03-23 17:15:38,019 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279639129820637
+2026-03-23 17:15:38,023 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279189751565188
+2026-03-23 17:15:38,026 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279672082629509
+2026-03-23 17:15:38,029 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279680145395479
+2026-03-23 17:15:38,032 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279679804083013
+2026-03-23 17:15:38,033 - [INFO] - weibo.py:69 -    >>> [Weibo] '为什么拐卖儿童不能买卖同罪' Saved: 5
+2026-03-23 17:15:42,000 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 伊媒称一架美国战斗机被击落 (Mode: hot) ---
+2026-03-23 17:15:47,005 - [ERROR] - weibo.py:72 - [Weibo] Crawl error: HTTPSConnectionPool(host='s.weibo.com', port=443): Max retries exceeded with url: /weibo?q=%E4%BC%8A%E5%AA%92%E7%A7%B0%E4%B8%80%E6%9E%B6%E7%BE%8E%E5%9B%BD%E6%88%98%E6%96%97%E6%9C%BA%E8%A2%AB%E5%87%BB%E8%90%BD&Refer=SWeibo_box (Caused by ProtocolError('Connection aborted.', FileNotFoundError(2, 'No such file or directory')))
+2026-03-23 17:15:50,410 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 梅姨去年年底就已落网 (Mode: hot) ---
+2026-03-23 17:15:55,434 - [ERROR] - weibo.py:72 - [Weibo] Crawl error: HTTPSConnectionPool(host='s.weibo.com', port=443): Max retries exceeded with url: /weibo?q=%E6%A2%85%E5%A7%A8%E5%8E%BB%E5%B9%B4%E5%B9%B4%E5%BA%95%E5%B0%B1%E5%B7%B2%E8%90%BD%E7%BD%91&Refer=SWeibo_box (Caused by ProtocolError('Connection aborted.', FileNotFoundError(2, 'No such file or directory')))
+2026-03-23 17:15:58,069 - [INFO] - engine.py:95 - === Crawler Stage Completed ===
+2026-03-23 17:15:58,071 - [INFO] - manager.py:17 - --- [Analysis Task] Starting batch processing ---
+2026-03-23 17:15:58,139 - [INFO] - manager.py:31 - Processing batch of 12 posts...
+2026-03-23 17:15:59,699 - [INFO] - manager.py:79 - --- [Analysis Task] Finished. Processed 12 posts. ---
+2026-03-23 17:15:59,700 - [INFO] - clustering.py:60 - Start topic clustering...
+2026-03-23 17:16:07,974 - [INFO] - clustering.py:225 - Clustering finished. topics=9261, posts=12466
+2026-03-23 17:16:08,026 - [INFO] - engine.py:102 - === Auto Analysis Completed ===
+2026-03-23 17:16:08,030 - [INFO] - worker.py:90 - [Worker] Task finished and callback sent: 69c0f46525202f0e6f9e1a9a
+2026-03-23 17:16:08,036 - [INFO] - worker.py:84 - [Worker] Received task: 69c0f54625202f0e6f9e1a9b, mode=hot_list
+2026-03-23 17:16:08,037 - [INFO] - engine.py:43 - === Starting Crawler Task 69c0f54625202f0e6f9e1a9b [Mode: hot_list] ===
+2026-03-23 17:16:08,041 - [INFO] - engine.py:51 - >>> Init Spider: weibo
+2026-03-23 17:16:08,042 - [INFO] - weibo.py:17 - --- [Weibo] Fetching Hot Search List ---
+2026-03-23 17:16:10,205 - [INFO] - weibo.py:36 - Got 51 hot keywords from Weibo.
+2026-03-23 17:16:10,207 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 足迹里的政绩观 (Mode: hot) ---
+2026-03-23 17:16:14,379 - [INFO] - weibo.py:69 -    >>> [Weibo] '足迹里的政绩观' Saved: 5
+2026-03-23 17:16:18,218 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 对国内成品油价格采取临时调控 (Mode: hot) ---
+2026-03-23 17:16:21,623 - [INFO] - weibo.py:69 -    >>> [Weibo] '对国内成品油价格采取临时调控' Saved: 5
+2026-03-23 17:16:24,860 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 问界M6 (Mode: hot) ---
+2026-03-23 17:16:28,621 - [INFO] - weibo.py:69 -    >>> [Weibo] '问界M6' Saved: 5
+2026-03-23 17:16:31,685 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 微厘空间02组卫星发射圆满成功 (Mode: hot) ---
+2026-03-23 17:16:33,773 - [INFO] - weibo.py:69 -    >>> [Weibo] '微厘空间02组卫星发射圆满成功' Saved: 5
+2026-03-23 17:16:36,188 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 周大生回应戒指印着周大金 (Mode: hot) ---
+2026-03-23 17:16:38,539 - [INFO] - weibo.py:69 -    >>> [Weibo] '周大生回应戒指印着周大金' Saved: 5
+2026-03-23 17:16:41,300 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 梅姨同居老汉说她曾带3名女孩回家 (Mode: hot) ---
+2026-03-23 17:16:44,720 - [INFO] - weibo.py:69 -    >>> [Weibo] '梅姨同居老汉说她曾带3名女孩回家' Saved: 5
+2026-03-23 17:16:48,449 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 长期不换社交头像的人 (Mode: hot) ---
+2026-03-23 17:16:50,628 - [INFO] - weibo.py:69 -    >>> [Weibo] '长期不换社交头像的人' Saved: 5
+2026-03-23 17:16:53,865 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 去年没换手机的人后悔了吗 (Mode: hot) ---
+2026-03-23 17:16:56,236 - [INFO] - weibo.py:69 -    >>> [Weibo] '去年没换手机的人后悔了吗' Saved: 5
+2026-03-23 17:17:00,001 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 华为发布会 (Mode: hot) ---
+2026-03-23 17:17:02,478 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279611463404167
+2026-03-23 17:17:02,480 - [INFO] - weibo.py:69 -    >>> [Weibo] '华为发布会' Saved: 5
+2026-03-23 17:17:05,630 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 弟弟偷抵32万新车哥哥气炸 (Mode: hot) ---
+2026-03-23 17:17:07,014 - [INFO] - weibo.py:69 -    >>> [Weibo] '弟弟偷抵32万新车哥哥气炸' Saved: 5
+2026-03-23 17:17:09,699 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 中东战事来到危险临界点 (Mode: hot) ---
+2026-03-23 17:17:12,884 - [INFO] - weibo.py:69 -    >>> [Weibo] '中东战事来到危险临界点' Saved: 5
+2026-03-23 17:17:15,483 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 林心如怎么受得了霍建华这条牛仔裤 (Mode: hot) ---
+2026-03-23 17:17:18,430 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279680686985792
+2026-03-23 17:17:18,431 - [INFO] - weibo.py:69 -    >>> [Weibo] '林心如怎么受得了霍建华这条牛仔裤' Saved: 5
+2026-03-23 17:17:21,253 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 黄金猴市来了 (Mode: hot) ---
+2026-03-23 17:17:23,837 - [INFO] - weibo.py:69 -    >>> [Weibo] '黄金猴市来了' Saved: 5
+2026-03-23 17:17:26,140 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 老中医离世后儿子上交460g罂粟壳 (Mode: hot) ---
+2026-03-23 17:17:29,050 - [INFO] - weibo.py:69 -    >>> [Weibo] '老中医离世后儿子上交460g罂粟壳' Saved: 5
+2026-03-23 17:17:32,700 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 长期喝桶装水的人天塌了 (Mode: hot) ---
+2026-03-23 17:17:36,876 - [INFO] - weibo.py:69 -    >>> [Weibo] '长期喝桶装水的人天塌了' Saved: 5
+2026-03-23 17:17:40,825 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 尚界Z7 (Mode: hot) ---
+2026-03-23 17:17:44,502 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279673241829812
+2026-03-23 17:17:44,505 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279668183500552
+2026-03-23 17:17:44,507 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279660890129258
+2026-03-23 17:17:44,510 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279666615353863
+2026-03-23 17:17:44,513 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279660511333934
+2026-03-23 17:17:44,513 - [INFO] - weibo.py:69 -    >>> [Weibo] '尚界Z7' Saved: 5
+2026-03-23 17:17:47,183 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 为什么拐卖儿童不能买卖同罪 (Mode: hot) ---
+2026-03-23 17:17:51,752 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279680518949605
+2026-03-23 17:17:51,754 - [INFO] - weibo.py:69 -    >>> [Weibo] '为什么拐卖儿童不能买卖同罪' Saved: 5
+2026-03-23 17:17:54,906 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 等太湖湾音乐节官宣 (Mode: hot) ---
+2026-03-23 17:17:57,368 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279600399093587
+2026-03-23 17:17:57,371 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279661286494889
+2026-03-23 17:17:57,373 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279544487447375
+2026-03-23 17:17:57,377 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279662763937325
+2026-03-23 17:17:57,380 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279367179800152
+2026-03-23 17:17:57,381 - [INFO] - weibo.py:69 -    >>> [Weibo] '等太湖湾音乐节官宣' Saved: 5
+2026-03-23 17:18:00,086 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 华为跑表业界首发马拉松模式 (Mode: hot) ---
+2026-03-23 17:18:06,486 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279654677842049
+2026-03-23 17:18:06,487 - [INFO] - weibo.py:69 -    >>> [Weibo] '华为跑表业界首发马拉松模式' Saved: 5
+2026-03-23 17:18:09,197 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 王楚然 全女团队 (Mode: hot) ---
+2026-03-23 17:18:11,861 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279680898795450
+2026-03-23 17:18:11,864 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279680766675824
+2026-03-23 17:18:11,867 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279679917326678
+2026-03-23 17:18:11,867 - [INFO] - weibo.py:69 -    >>> [Weibo] '王楚然 全女团队' Saved: 5
+2026-03-23 17:18:15,079 - [INFO] - engine.py:95 - === Crawler Stage Completed ===
+2026-03-23 17:18:15,081 - [INFO] - manager.py:17 - --- [Analysis Task] Starting batch processing ---
+2026-03-23 17:18:15,154 - [INFO] - manager.py:31 - Processing batch of 17 posts...
+2026-03-23 17:18:17,703 - [INFO] - manager.py:79 - --- [Analysis Task] Finished. Processed 17 posts. ---
+2026-03-23 17:18:17,704 - [INFO] - clustering.py:60 - Start topic clustering...
+2026-03-23 17:18:27,946 - [INFO] - clustering.py:225 - Clustering finished. topics=9276, posts=12483
+2026-03-23 17:18:27,999 - [INFO] - engine.py:102 - === Auto Analysis Completed ===
+2026-03-23 17:18:28,003 - [INFO] - worker.py:90 - [Worker] Task finished and callback sent: 69c0f54625202f0e6f9e1a9b
+2026-03-23 17:18:28,014 - [INFO] - worker.py:84 - [Worker] Received task: 69c0f69525202f0e6f9e1a9c, mode=hot_list
+2026-03-23 17:18:28,015 - [INFO] - engine.py:43 - === Starting Crawler Task 69c0f69525202f0e6f9e1a9c [Mode: hot_list] ===
+2026-03-23 17:18:28,018 - [INFO] - engine.py:51 - >>> Init Spider: weibo
+2026-03-23 17:18:28,020 - [INFO] - weibo.py:17 - --- [Weibo] Fetching Hot Search List ---
+2026-03-23 17:18:30,784 - [INFO] - weibo.py:36 - Got 51 hot keywords from Weibo.
+2026-03-23 17:18:30,786 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 足迹里的政绩观 (Mode: hot) ---
+2026-03-23 17:18:34,292 - [INFO] - weibo.py:69 -    >>> [Weibo] '足迹里的政绩观' Saved: 5
+2026-03-23 17:18:36,369 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 对国内成品油价格采取临时调控 (Mode: hot) ---
+2026-03-23 17:18:44,529 - [INFO] - weibo.py:69 -    >>> [Weibo] '对国内成品油价格采取临时调控' Saved: 5
+2026-03-23 17:18:47,770 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 周大生回应戒指印着周大金 (Mode: hot) ---
+2026-03-23 17:18:51,016 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279655382745341
+2026-03-23 17:18:51,019 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279679355555976
+2026-03-23 17:18:51,019 - [INFO] - weibo.py:69 -    >>> [Weibo] '周大生回应戒指印着周大金' Saved: 5
+2026-03-23 17:18:54,414 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 微厘空间02组卫星发射圆满成功 (Mode: hot) ---
+2026-03-23 17:18:57,408 - [INFO] - weibo.py:69 -    >>> [Weibo] '微厘空间02组卫星发射圆满成功' Saved: 5
+2026-03-23 17:19:01,146 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 问界M6 (Mode: hot) ---
+2026-03-23 17:19:04,323 - [INFO] - weibo.py:69 -    >>> [Weibo] '问界M6' Saved: 5
+2026-03-23 17:19:08,261 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 梅姨同居老汉说她曾带3名女孩回家 (Mode: hot) ---
+2026-03-23 17:19:13,373 - [INFO] - weibo.py:69 -    >>> [Weibo] '梅姨同居老汉说她曾带3名女孩回家' Saved: 5
+2026-03-23 17:19:16,674 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 长期不换社交头像的人 (Mode: hot) ---
+2026-03-23 17:19:18,642 - [INFO] - weibo.py:69 -    >>> [Weibo] '长期不换社交头像的人' Saved: 5
+2026-03-23 17:19:22,443 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 去年没换手机的人后悔了吗 (Mode: hot) ---
+2026-03-23 17:19:24,773 - [INFO] - weibo.py:69 -    >>> [Weibo] '去年没换手机的人后悔了吗' Saved: 5
+2026-03-23 17:19:27,382 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 华为发布会 (Mode: hot) ---
+2026-03-23 17:19:30,625 - [INFO] - weibo.py:69 -    >>> [Weibo] '华为发布会' Saved: 5
+2026-03-23 17:19:32,881 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 弟弟偷抵32万新车哥哥气炸 (Mode: hot) ---
+2026-03-23 17:19:35,390 - [INFO] - weibo.py:69 -    >>> [Weibo] '弟弟偷抵32万新车哥哥气炸' Saved: 5
+2026-03-23 17:19:37,570 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 中东战事来到危险临界点 (Mode: hot) ---
+2026-03-23 17:19:39,655 - [INFO] - weibo.py:69 -    >>> [Weibo] '中东战事来到危险临界点' Saved: 5
+2026-03-23 17:19:43,519 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 林心如怎么受得了霍建华这条牛仔裤 (Mode: hot) ---
+2026-03-23 17:19:47,783 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279681272351546
+2026-03-23 17:19:47,784 - [INFO] - weibo.py:69 -    >>> [Weibo] '林心如怎么受得了霍建华这条牛仔裤' Saved: 5
+2026-03-23 17:19:50,323 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 黄金猴市来了 (Mode: hot) ---
+2026-03-23 17:19:52,389 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279676584955111
+2026-03-23 17:19:52,390 - [INFO] - weibo.py:69 -    >>> [Weibo] '黄金猴市来了' Saved: 5
+2026-03-23 17:19:56,284 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 长期喝桶装水的人天塌了 (Mode: hot) ---
+2026-03-23 17:19:58,381 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279593533802923
+2026-03-23 17:19:58,391 - [INFO] - weibo.py:69 -    >>> [Weibo] '长期喝桶装水的人天塌了' Saved: 5
+2026-03-23 17:20:02,246 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 老中医离世后儿子上交460g罂粟壳 (Mode: hot) ---
+2026-03-23 17:20:05,439 - [INFO] - weibo.py:69 -    >>> [Weibo] '老中医离世后儿子上交460g罂粟壳' Saved: 5
+2026-03-23 17:20:09,231 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 王楚然 全女团队 (Mode: hot) ---
+2026-03-23 17:20:12,318 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279681147306085
+2026-03-23 17:20:12,322 - [INFO] - weibo.py:69 -    >>> [Weibo] '王楚然 全女团队' Saved: 5
+2026-03-23 17:20:14,445 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 外交部回应美国威胁伊朗 (Mode: hot) ---
+2026-03-23 17:20:18,767 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279655376457487
+2026-03-23 17:20:18,770 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5277186190742487
+2026-03-23 17:20:18,773 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5274622358718814
+2026-03-23 17:20:18,777 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279543187212001
+2026-03-23 17:20:18,780 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279546557335692
+2026-03-23 17:20:18,781 - [INFO] - weibo.py:69 -    >>> [Weibo] '外交部回应美国威胁伊朗' Saved: 5
+2026-03-23 17:20:21,360 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 张凌赫壁纸 (Mode: hot) ---
+2026-03-23 17:20:23,915 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5277912022385264
+2026-03-23 17:20:23,919 - [INFO] - weibo.py:69 -    >>> [Weibo] '张凌赫壁纸' Saved: 5
+2026-03-23 17:20:26,260 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 中方强烈呼吁立即停止军事行动 (Mode: hot) ---
+2026-03-23 17:20:28,665 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279680900369053
+2026-03-23 17:20:28,670 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5273018491996558
+2026-03-23 17:20:28,673 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279680596804147
+2026-03-23 17:20:28,676 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279680594973461
+2026-03-23 17:20:28,677 - [INFO] - weibo.py:69 -    >>> [Weibo] '中方强烈呼吁立即停止军事行动' Saved: 5
+2026-03-23 17:20:32,007 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 瞿颖从西班牙人变非洲人 (Mode: hot) ---
+2026-03-23 17:20:34,916 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279569124787859
+2026-03-23 17:20:34,920 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279669675103462
+2026-03-23 17:20:34,923 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279668795345162
+2026-03-23 17:20:34,927 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279669148452013
+2026-03-23 17:20:34,930 - [INFO] - weibo.py:69 -    >>> [Weibo] '瞿颖从西班牙人变非洲人' Saved: 5
+2026-03-23 17:20:38,920 - [INFO] - engine.py:95 - === Crawler Stage Completed ===
+2026-03-23 17:20:38,921 - [INFO] - manager.py:17 - --- [Analysis Task] Starting batch processing ---
+2026-03-23 17:20:38,984 - [INFO] - manager.py:31 - Processing batch of 20 posts...
+2026-03-23 17:20:41,720 - [INFO] - manager.py:79 - --- [Analysis Task] Finished. Processed 20 posts. ---
+2026-03-23 17:20:41,721 - [INFO] - clustering.py:60 - Start topic clustering...
+2026-03-23 17:20:50,383 - [INFO] - clustering.py:225 - Clustering finished. topics=9291, posts=12503
+2026-03-23 17:20:50,424 - [INFO] - engine.py:102 - === Auto Analysis Completed ===
+2026-03-23 17:20:50,427 - [INFO] - worker.py:90 - [Worker] Task finished and callback sent: 69c0f69525202f0e6f9e1a9c
+2026-03-23 17:20:50,428 - [INFO] - worker.py:84 - [Worker] Received task: 69c0f71e25202f0e6f9e1a9d, mode=hot_list
+2026-03-23 17:20:50,429 - [INFO] - engine.py:43 - === Starting Crawler Task 69c0f71e25202f0e6f9e1a9d [Mode: hot_list] ===
+2026-03-23 17:20:50,432 - [INFO] - engine.py:51 - >>> Init Spider: weibo
+2026-03-23 17:20:50,433 - [INFO] - weibo.py:17 - --- [Weibo] Fetching Hot Search List ---
+2026-03-23 17:20:55,438 - [ERROR] - weibo.py:40 - [Weibo] Failed to fetch hot list: HTTPSConnectionPool(host='s.weibo.com', port=443): Max retries exceeded with url: /top/summary (Caused by ProtocolError('Connection aborted.', FileNotFoundError(2, 'No such file or directory')))
+2026-03-23 17:20:55,439 - [WARNING] - engine.py:57 - [weibo] No hot list found.
+2026-03-23 17:20:55,440 - [INFO] - engine.py:95 - === Crawler Stage Completed ===
+2026-03-23 17:20:55,442 - [INFO] - manager.py:17 - --- [Analysis Task] Starting batch processing ---
+2026-03-23 17:20:55,502 - [INFO] - manager.py:79 - --- [Analysis Task] Finished. Processed 0 posts. ---
+2026-03-23 17:20:55,503 - [INFO] - clustering.py:60 - Start topic clustering...
+2026-03-23 17:21:03,746 - [INFO] - clustering.py:225 - Clustering finished. topics=9291, posts=12503
+2026-03-23 17:21:03,790 - [INFO] - engine.py:102 - === Auto Analysis Completed ===
+2026-03-23 17:21:03,794 - [INFO] - worker.py:90 - [Worker] Task finished and callback sent: 69c0f71e25202f0e6f9e1a9d
+2026-03-23 17:21:03,795 - [INFO] - worker.py:84 - [Worker] Received task: 69c0ffb0c1fc4a2b96dfbf26, mode=hot_list
+2026-03-23 17:21:03,796 - [INFO] - engine.py:43 - === Starting Crawler Task 69c0ffb0c1fc4a2b96dfbf26 [Mode: hot_list] ===
+2026-03-23 17:21:03,798 - [INFO] - engine.py:51 - >>> Init Spider: weibo
+2026-03-23 17:21:03,800 - [INFO] - weibo.py:17 - --- [Weibo] Fetching Hot Search List ---
+2026-03-23 17:21:06,989 - [INFO] - weibo.py:36 - Got 51 hot keywords from Weibo.
+2026-03-23 17:21:06,991 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 足迹里的政绩观 (Mode: hot) ---
+2026-03-23 17:21:09,856 - [INFO] - weibo.py:69 -    >>> [Weibo] '足迹里的政绩观' Saved: 5
+2026-03-23 17:21:12,279 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 对国内成品油价格采取临时调控 (Mode: hot) ---
+2026-03-23 17:21:17,124 - [INFO] - weibo.py:69 -    >>> [Weibo] '对国内成品油价格采取临时调控' Saved: 5
+2026-03-23 17:21:20,881 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 问界M6 (Mode: hot) ---
+2026-03-23 17:21:23,755 - [INFO] - weibo.py:69 -    >>> [Weibo] '问界M6' Saved: 5
+2026-03-23 17:21:26,524 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 微厘空间02组卫星发射圆满成功 (Mode: hot) ---
+2026-03-23 17:21:30,454 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279681127649047
+2026-03-23 17:21:30,460 - [INFO] - weibo.py:69 -    >>> [Weibo] '微厘空间02组卫星发射圆满成功' Saved: 5
+2026-03-23 17:21:33,652 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 周大生回应戒指印着周大金 (Mode: hot) ---
+2026-03-23 17:21:36,071 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279681678938388
+2026-03-23 17:21:36,072 - [INFO] - weibo.py:69 -    >>> [Weibo] '周大生回应戒指印着周大金' Saved: 5
+2026-03-23 17:21:39,309 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 梅姨同居老汉说她曾带3名女孩回家 (Mode: hot) ---
+2026-03-23 17:21:42,201 - [INFO] - weibo.py:69 -    >>> [Weibo] '梅姨同居老汉说她曾带3名女孩回家' Saved: 5
+2026-03-23 17:21:45,392 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 长期不换社交头像的人 (Mode: hot) ---
+2026-03-23 17:21:54,580 - [INFO] - weibo.py:69 -    >>> [Weibo] '长期不换社交头像的人' Saved: 5
+2026-03-23 17:21:57,680 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 中东战事来到危险临界点 (Mode: hot) ---
+2026-03-23 17:22:00,799 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279674948128292
+2026-03-23 17:22:00,802 - [INFO] - weibo.py:69 -    >>> [Weibo] '中东战事来到危险临界点' Saved: 5
+2026-03-23 17:22:04,193 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 弟弟偷抵32万新车哥哥气炸 (Mode: hot) ---
+2026-03-23 17:22:08,357 - [INFO] - weibo.py:69 -    >>> [Weibo] '弟弟偷抵32万新车哥哥气炸' Saved: 5
+2026-03-23 17:22:11,779 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 去年没换手机的人后悔了吗 (Mode: hot) ---
+2026-03-23 17:22:13,892 - [INFO] - weibo.py:69 -    >>> [Weibo] '去年没换手机的人后悔了吗' Saved: 5
+2026-03-23 17:22:17,037 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 华为发布会 (Mode: hot) ---
+2026-03-23 17:22:19,128 - [INFO] - weibo.py:69 -    >>> [Weibo] '华为发布会' Saved: 5
+2026-03-23 17:22:21,744 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 林心如怎么受得了霍建华这条牛仔裤 (Mode: hot) ---
+2026-03-23 17:22:24,069 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279669055129920
+2026-03-23 17:22:24,072 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279670301885095
+2026-03-23 17:22:24,073 - [INFO] - weibo.py:69 -    >>> [Weibo] '林心如怎么受得了霍建华这条牛仔裤' Saved: 5
+2026-03-23 17:22:26,980 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 黄金猴市来了 (Mode: hot) ---
+2026-03-23 17:22:29,468 - [INFO] - weibo.py:69 -    >>> [Weibo] '黄金猴市来了' Saved: 5
+2026-03-23 17:22:33,050 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 长期喝桶装水的人天塌了 (Mode: hot) ---
+2026-03-23 17:22:35,299 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279641877089121
+2026-03-23 17:22:35,308 - [INFO] - weibo.py:69 -    >>> [Weibo] '长期喝桶装水的人天塌了' Saved: 5
+2026-03-23 17:22:38,621 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 老中医离世后儿子上交460g罂粟壳 (Mode: hot) ---
+2026-03-23 17:22:45,020 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279679231561587
+2026-03-23 17:22:45,023 - [INFO] - weibo.py:69 -    >>> [Weibo] '老中医离世后儿子上交460g罂粟壳' Saved: 5
