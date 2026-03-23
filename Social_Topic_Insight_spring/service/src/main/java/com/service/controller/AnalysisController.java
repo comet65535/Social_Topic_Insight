@@ -90,41 +90,47 @@ public class AnalysisController {
      */
     @GetMapping("/dashboard/charts")
     public Result<Map<String, Object>> getDashboardCharts() {
-        Document command = new Document("aggregate", "social_posts")
-                .append("pipeline", List.of(
-                        new Document("$group", new Document("_id", "$platform").append("count", new Document("$sum", 1)))
-                ))
-                .append("cursor", new Document());
-
-        // Step 1: 平台占比
-        Document aggregateResult = mongoTemplate.getDb().runCommand(command);
-        Document cursorDoc = aggregateResult == null ? null : aggregateResult.get("cursor", Document.class);
-        List<Document> firstBatch = cursorDoc == null
-                ? Collections.emptyList()
-                : cursorDoc.getList("firstBatch", Document.class, Collections.emptyList());
-        List<Map<String, Object>> pieData = new ArrayList<>();
-        for (Document item : firstBatch) {
-            Map<String, Object> row = new LinkedHashMap<>();
-            row.put("name", item.getString("_id"));
-            row.put("value", item.get("count", Number.class) == null ? 0 : item.get("count", Number.class).intValue());
-            pieData.add(row);
+        // Step 1: 锁定最新任务数据（若该任务尚未写入 task_id，则兜底全量）
+        String latestTaskId = resolveLatestTaskId();
+        Query postQuery = new Query();
+        if (hasSocialPostsForTask(latestTaskId)) {
+            postQuery.addCriteria(Criteria.where("task_id").is(latestTaskId));
         }
+        postQuery.fields()
+                .include("platform")
+                .include("crawl_time")
+                .include("publish_time");
+        List<Document> firstBatch = mongoTemplate.find(postQuery, Document.class, "social_posts");
 
-        // Step 2: 最近 24 小时趋势
+        // Step 2: 平台占比
+        List<Map<String, Object>> pieData = new ArrayList<>();
+        Map<String, Integer> platformCounter = new HashMap<>();
+        for (Document item : firstBatch) {
+            String platform = String.valueOf(item.getOrDefault("platform", "unknown"));
+            platformCounter.merge(platform, 1, Integer::sum);
+        }
+        platformCounter.forEach((k, v) -> {
+            Map<String, Object> row = new LinkedHashMap<>();
+            row.put("name", k);
+            row.put("value", v);
+            pieData.add(row);
+        });
+
+        // Step 3: 最近 24 小时趋势（优先 crawl_time，兜底 publish_time）
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime yesterday = now.minusDays(1);
         Date fromDate = Date.from(yesterday.atZone(ZONE_ID).toInstant());
-        Query trendQuery = Query.query(Criteria.where("publish_time").gte(fromDate));
-        trendQuery.fields().include("publish_time");
-        List<Document> docs = mongoTemplate.find(trendQuery, Document.class, "social_posts");
 
         Map<String, Integer> bucketCounter = new ConcurrentHashMap<>();
-        for (Document doc : docs) {
-            Date publishTime = toDate(doc.get("publish_time"));
-            if (publishTime == null) {
+        for (Document doc : firstBatch) {
+            Date eventTime = toDate(doc.get("crawl_time"));
+            if (eventTime == null) {
+                eventTime = toDate(doc.get("publish_time"));
+            }
+            if (eventTime == null || eventTime.before(fromDate)) {
                 continue;
             }
-            LocalDateTime ldt = LocalDateTime.ofInstant(publishTime.toInstant(), ZONE_ID);
+            LocalDateTime ldt = LocalDateTime.ofInstant(eventTime.toInstant(), ZONE_ID);
             String hourKey = ldt.format(HOUR_BUCKET_FMT);
             bucketCounter.merge(hourKey, 1, Integer::sum);
         }
@@ -156,12 +162,20 @@ public class AnalysisController {
      */
     @GetMapping("/dashboard/stats")
     public Result<List<Map<String, Object>>> getDashboardStats() {
-        long totalPosts = mongoTemplate.getCollection("social_posts").countDocuments();
-        long totalTopics = mongoTemplate.getCollection("analyzed_topics").countDocuments();
+        String latestTaskId = resolveLatestTaskId();
+        Document topicFilter = hasTopicsForTask(latestTaskId)
+                ? new Document("task_id", latestTaskId)
+                : new Document();
+        Document postFilter = hasSocialPostsForTask(latestTaskId)
+                ? new Document("task_id", latestTaskId)
+                : new Document();
+
+        long totalPosts = mongoTemplate.getCollection("social_posts").countDocuments(postFilter);
+        long totalTopics = mongoTemplate.getCollection("analyzed_topics").countDocuments(topicFilter);
         long burstTopics = mongoTemplate.getCollection("analyzed_topics")
-                .countDocuments(new Document("is_burst", true));
+                .countDocuments(new Document(topicFilter).append("is_burst", true));
         long negativePosts = mongoTemplate.getCollection("social_posts")
-                .countDocuments(new Document("sentiment_score", new Document("$lt", -0.3)));
+                .countDocuments(new Document(postFilter).append("sentiment_score", new Document("$lt", -0.3)));
 
         double negRate = totalPosts > 0 ? round((negativePosts * 100.0) / totalPosts, 1) : 0.0;
 
@@ -180,7 +194,7 @@ public class AnalysisController {
      */
     @GetMapping("/wordcloud")
     public Result<List<Map<String, Object>>> getWordCloud() {
-        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "total_heat")).limit(150);
+        Query query = buildTopicQueryByLatestTask(150);
         List<Document> topics = mongoTemplate.find(query, Document.class, "analyzed_topics");
 
         Map<String, Integer> wordFreq = new HashMap<>();
@@ -219,7 +233,7 @@ public class AnalysisController {
      */
     @GetMapping("/graph")
     public Result<List<Map<String, Object>>> getTopicGraph() {
-        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "total_heat")).limit(50);
+        Query query = buildTopicQueryByLatestTask(50);
         List<Document> topics = mongoTemplate.find(query, Document.class, "analyzed_topics");
 
         List<Map<String, Object>> data = new ArrayList<>();
@@ -420,7 +434,9 @@ public class AnalysisController {
                     if (item instanceof Map<?, ?> rawMap) {
                         Map<String, Object> normalized = new LinkedHashMap<>();
                         rawMap.forEach((k, v) -> normalized.put(String.valueOf(k), v));
-                        result.add(normalized);
+                        if (!String.valueOf(normalized.getOrDefault("id", "")).isBlank()) {
+                            result.add(normalized);
+                        }
                     } else {
                         result.clear();
                         break;
@@ -439,9 +455,7 @@ public class AnalysisController {
     }
 
     private List<Map<String, Object>> queryHotTopicsFromMongo() {
-        Query query = new Query()
-                .with(Sort.by(Sort.Direction.DESC, "total_heat"))
-                .limit(50);
+        Query query = buildTopicQueryByLatestTask(50);
         List<Document> docs = mongoTemplate.find(query, Document.class, "analyzed_topics");
 
         List<Map<String, Object>> topics = new ArrayList<>();
@@ -457,6 +471,41 @@ public class AnalysisController {
             topics.add(row);
         }
         return topics;
+    }
+
+    private Query buildTopicQueryByLatestTask(int limit) {
+        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "total_heat")).limit(limit);
+        String latestTaskId = resolveLatestTaskId();
+        if (hasTopicsForTask(latestTaskId)) {
+            query.addCriteria(Criteria.where("task_id").is(latestTaskId));
+        }
+        return query;
+    }
+
+    private String resolveLatestTaskId() {
+        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "create_time")).limit(1);
+        query.fields().include("_id");
+        Document taskDoc = mongoTemplate.findOne(query, Document.class, "crawler_tasks");
+        if (taskDoc == null) {
+            return "";
+        }
+        return objectIdToString(taskDoc.get("_id"));
+    }
+
+    private boolean hasTopicsForTask(String taskId) {
+        if (taskId == null || taskId.isBlank()) {
+            return false;
+        }
+        Query query = Query.query(Criteria.where("task_id").is(taskId));
+        return mongoTemplate.exists(query, "analyzed_topics");
+    }
+
+    private boolean hasSocialPostsForTask(String taskId) {
+        if (taskId == null || taskId.isBlank()) {
+            return false;
+        }
+        Query query = Query.query(Criteria.where("task_id").is(taskId));
+        return mongoTemplate.exists(query, "social_posts");
     }
 
     private Map<String, Object> statItem(String title, String value, String icon, String type, double trend) {

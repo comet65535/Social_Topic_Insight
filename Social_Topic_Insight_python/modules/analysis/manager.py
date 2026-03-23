@@ -10,7 +10,7 @@ class AnalysisManager:
         self.nlp = NLPProcessor()
         self.is_running = False
 
-    def process_raw_posts(self, batch_size=50):
+    def process_raw_posts(self, task_id=None, batch_size=50):
         """
         第一阶段：对原始数据进行清洗、NLP提取、向量化
         """
@@ -20,9 +20,13 @@ class AnalysisManager:
         processed_count = 0
         
         try:
+            query_filter = {"process_status": 0}
+            if task_id:
+                query_filter["task_id"] = str(task_id)
+
             while True:
                 # 1. 捞取未处理的数据
-                cursor = collection.find({"process_status": 0}).limit(batch_size)
+                cursor = collection.find(query_filter).limit(batch_size)
                 posts_data = list(cursor)
                 
                 if not posts_data:
@@ -91,7 +95,7 @@ class AnalysisManager:
         """
         self.is_running = True
         try:
-            self.process_raw_posts()
+            self.process_raw_posts(task_id=task_id)
             self.run_topic_clustering(task_id=task_id)
         finally:
             self.is_running = False

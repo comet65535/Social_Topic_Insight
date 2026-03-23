@@ -4,6 +4,8 @@ import com.common.DTO.ClusterDoneMessage;
 import com.common.VO.HotTopicVO;
 import com.common.entity.Task;
 import com.common.entity.Topic;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.config.RabbitConfig;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +21,18 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestClient;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -55,6 +61,8 @@ public class LlmSummaryService {
     private final ChatClient chatClient;
     private final RedisTemplate<String, Object> redisTemplate;
     private final TaskService taskService;
+    private final RestClient.Builder restClientBuilder;
+    private final ObjectMapper objectMapper;
 
     @Resource(name = "llmSummaryExecutor")
     private Executor llmSummaryExecutor;
@@ -64,6 +72,18 @@ public class LlmSummaryService {
 
     @Value("${topic.cache.hot-topics-ttl-minutes:10}")
     private long hotTopicsCacheTtlMinutes;
+
+    @Value("${spring.ai.openai.base-url}")
+    private String openAiBaseUrl;
+
+    @Value("${spring.ai.openai.api-key}")
+    private String openAiApiKey;
+
+    @Value("${spring.ai.openai.chat.options.model:deepseek-chat}")
+    private String openAiModel;
+
+    @Value("${spring.ai.openai.chat.options.temperature:0.1}")
+    private double openAiTemperature;
 
     /**
      * 监听 Python Worker 发出的聚类完成事件。
@@ -84,14 +104,14 @@ public class LlmSummaryService {
         try {
             // Step 2: 查询任务（用于后续释放锁）
             Task task = taskService.findById(taskId).orElse(null);
-            // Step 3: 拉取未命名话题（优先 task_id，失败则全局兜底）
-            List<Topic> targetTopics = queryUntitledTopics(taskId);
+            // Step 3: 拉取本任务 Top50 话题并统一执行命名（避免历史关键字标题残留）
+            List<Topic> targetTopics = queryTopicsForSummary(taskId);
 
             if (!targetTopics.isEmpty()) {
                 // Step 4: 并发调用 LLM 生成标题，并回写 Mongo
                 summarizeTopicsConcurrently(targetTopics);
             } else {
-                log.info("No untitled topics found for taskId={}", taskId);
+                log.info("No topics found for summary, taskId={}", taskId);
             }
 
             // Step 5: 预热热点缓存，提升 hot-topics 接口首屏性能
@@ -112,23 +132,13 @@ public class LlmSummaryService {
     }
 
     /**
-     * 查询待命名话题（name 为空）。
+     * 查询需要命名的目标话题。
      *
      * @param taskId 当前任务 ID
-     * @return 待命名话题列表，最多 50 条
+     * @return 话题列表，最多 50 条
      */
-    private List<Topic> queryUntitledTopics(String taskId) {
-        Criteria untitledCriteria = new Criteria().orOperator(
-                Criteria.where("name").is(null),
-                Criteria.where("name").is("")
-        );
-
-        Criteria byTaskCriteria = new Criteria().andOperator(
-                Criteria.where("task_id").is(taskId),
-                untitledCriteria
-        );
-
-        Query queryByTask = new Query(byTaskCriteria)
+    private List<Topic> queryTopicsForSummary(String taskId) {
+        Query queryByTask = new Query(Criteria.where("task_id").is(taskId))
                 .with(Sort.by(Sort.Direction.DESC, "total_heat"))
                 .limit(50);
 
@@ -138,8 +148,8 @@ public class LlmSummaryService {
             return topics;
         }
 
-        // 兜底：如果当前任务没有数据，则从全局未命名话题里拿 Top 50
-        Query fallbackQuery = new Query(untitledCriteria)
+        // 兜底：如果当前任务没有数据，则从全局热点中拿 Top 50
+        Query fallbackQuery = new Query()
                 .with(Sort.by(Sort.Direction.DESC, "total_heat"))
                 .limit(50);
         return mongoTemplate.find(fallbackQuery, Topic.class);
@@ -214,13 +224,77 @@ public class LlmSummaryService {
             String llmTitle = chatClient.prompt(prompt).call().content();
             return sanitizeTitle(llmTitle, topic.getKeywords());
         } catch (Exception ex) {
-            log.warn(
-                    "LLM call failed for topicId={}, fallback by keywords. reason={}",
-                    topic.getId(),
-                    ex.getMessage()
-            );
-            return fallbackTitle(topic.getKeywords());
+            log.warn("SpringAI call failed for topicId={}, try raw HTTP fallback. reason={}", topic.getId(), ex.getMessage());
         }
+
+        try {
+            String llmTitle = callLlmByHttpCompat(prompt);
+            return sanitizeTitle(llmTitle, topic.getKeywords());
+        } catch (Exception ex) {
+            log.warn("Raw HTTP LLM call failed for topicId={}, fallback by keywords. reason={}", topic.getId(), ex.getMessage());
+            return composeFallbackTitle(topic.getName(), topic.getKeywords());
+        }
+    }
+
+    /**
+     * 使用 OpenAI 兼容 HTTP 接口调用 LLM。
+     * <p>
+     * 该方法专门兜底 content-type 非 application/json 的场景，
+     * 将响应体先按 String 读取，再手动解析 JSON。
+     *
+     * @param prompt 提示词
+     * @return LLM 返回标题文本
+     */
+    private String callLlmByHttpCompat(String prompt) {
+        String baseUrl = openAiBaseUrl == null ? "" : openAiBaseUrl.trim();
+        if (!StringUtils.hasText(baseUrl)) {
+            throw new IllegalStateException("spring.ai.openai.base-url is empty");
+        }
+        if (baseUrl.endsWith("/")) {
+            baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
+        }
+
+        RestClient client = restClientBuilder
+                .baseUrl(baseUrl)
+                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + openAiApiKey)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        Map<String, Object> request = Map.of(
+                "model", openAiModel,
+                "messages", List.of(Map.of("role", "user", "content", prompt)),
+                "temperature", openAiTemperature,
+                "stream", false
+        );
+
+        String rawBody = client.post()
+                .uri("/chat/completions")
+                .body(request)
+                .retrieve()
+                .body(String.class);
+
+        if (!StringUtils.hasText(rawBody)) {
+            throw new IllegalStateException("Empty response body from LLM");
+        }
+
+        try {
+            JsonNode root = objectMapper.readTree(rawBody);
+            JsonNode contentNode = root.path("choices").path(0).path("message").path("content");
+            String content = contentNode.isMissingNode() ? null : contentNode.asText(null);
+            if (!StringUtils.hasText(content)) {
+                throw new IllegalStateException("No choices[0].message.content in LLM response");
+            }
+            return content;
+        } catch (Exception ex) {
+            throw new IllegalStateException("Failed to parse LLM response: " + ex.getMessage(), ex);
+        }
+    }
+
+    private String composeFallbackTitle(String currentName, List<String> keywords) {
+        if (StringUtils.hasText(currentName)) {
+            return currentName.trim();
+        }
+        return fallbackTitle(keywords);
     }
 
     /**
@@ -304,10 +378,27 @@ public class LlmSummaryService {
      */
     public List<HotTopicVO> refreshHotTopicsCache() {
         // Step 1: 按热度查询 Mongo Top 50（要求已命名）
-        Query query = new Query()
-                .addCriteria(Criteria.where("name").ne(null).ne(""))
-                .with(Sort.by(Sort.Direction.DESC, "total_heat"))
-                .limit(50);
+        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "total_heat")).limit(50);
+        query.addCriteria(Criteria.where("name").ne(null).ne(""));
+
+        String latestTaskId = resolveLatestTaskId();
+        if (StringUtils.hasText(latestTaskId)) {
+            Query taskScoped = new Query()
+                    .addCriteria(Criteria.where("task_id").is(latestTaskId))
+                    .addCriteria(Criteria.where("name").ne(null).ne(""))
+                    .with(Sort.by(Sort.Direction.DESC, "total_heat"))
+                    .limit(50);
+            List<Topic> scopedTopics = mongoTemplate.find(taskScoped, Topic.class);
+            if (!CollectionUtils.isEmpty(scopedTopics)) {
+                List<HotTopicVO> hotTopicVOList = scopedTopics.stream().map(this::toHotTopicVO).toList();
+                redisTemplate.opsForValue().set(
+                        hotTopicsCacheKey,
+                        hotTopicVOList,
+                        Duration.ofMinutes(hotTopicsCacheTtlMinutes)
+                );
+                return hotTopicVOList;
+            }
+        }
 
         List<Topic> topics = mongoTemplate.find(query, Topic.class);
         if (CollectionUtils.isEmpty(topics)) {
@@ -324,6 +415,13 @@ public class LlmSummaryService {
                 Duration.ofMinutes(hotTopicsCacheTtlMinutes)
         );
         return hotTopicVOList;
+    }
+
+    private String resolveLatestTaskId() {
+        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "create_time")).limit(1);
+        query.fields().include("_id");
+        Task latestTask = mongoTemplate.findOne(query, Task.class);
+        return latestTask == null ? "" : latestTask.getId();
     }
 
     /**

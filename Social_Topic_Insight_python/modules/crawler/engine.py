@@ -50,6 +50,7 @@ class CrawlerEngine:
                 try:
                     logger.info(f">>> Init Spider: {platform_name}")
                     spider = CrawlerFactory.create_crawler(platform_name)
+                    spider.current_task_id = task_id
 
                     if mode == "hot_list":
                         hot_list = spider.get_hot_search_list()

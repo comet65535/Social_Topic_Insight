@@ -25,6 +25,9 @@ class ClusterEngine:
 
     @staticmethod
     def _safe_publish_time(post: Dict[str, Any]) -> datetime:
+        crawl_time = post.get("crawl_time")
+        if isinstance(crawl_time, datetime):
+            return crawl_time
         publish_time = post.get("publish_time")
         return publish_time if isinstance(publish_time, datetime) else datetime.now()
 
@@ -63,23 +66,29 @@ class ClusterEngine:
         topic_collection = db.get_collection("analyzed_topics")
         trend_collection = db.get_collection("topic_trends")
 
+        query_filter = {"process_status": 1}
+        if task_id:
+            query_filter["task_id"] = str(task_id)
+
         cursor = post_collection.find(
-            {"process_status": 1},
+            query_filter,
             {
                 "content": 1,
                 "clean_content": 1,
                 "keywords": 1,
                 "sentiment_score": 1,
                 "publish_time": 1,
+                "crawl_time": 1,
                 "metrics": 1,
                 "ip_location": 1,
                 "post_id": 1,
+                "task_id": 1,
             },
         )
         posts = list(cursor)
 
-        if len(posts) < 10:
-            logger.warning(f"Not enough processed posts for clustering. count={len(posts)}")
+        if not posts:
+            logger.warning(f"No processed posts for clustering. task_id={task_id}")
             return
 
         groups = defaultdict(
@@ -205,6 +214,7 @@ class ClusterEngine:
                 )
                 trend_doc = trend.model_dump(by_alias=True, exclude={"id"})
                 trend_doc["topic_ref_id"] = insert_result.inserted_id
+                trend_doc["task_id"] = str(task_id) if task_id else None
                 trend_docs.append(trend_doc)
 
         if trend_docs:
@@ -217,7 +227,12 @@ class ClusterEngine:
             if topic_ref_id is None:
                 continue
             for post in data["posts"]:
-                bulk_ops.append(UpdateOne({"_id": post["_id"]}, {"$set": {"topic_ref_id": topic_ref_id}}))
+                bulk_ops.append(
+                    UpdateOne(
+                        {"_id": post["_id"]},
+                        {"$set": {"topic_ref_id": topic_ref_id, "task_id": str(task_id) if task_id else None}}
+                    )
+                )
 
         if bulk_ops:
             post_collection.bulk_write(bulk_ops)

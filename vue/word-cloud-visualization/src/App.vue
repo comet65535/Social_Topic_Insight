@@ -618,13 +618,18 @@ const getSentimentColor = (val) => {
 const changeView = async (view) => {
   currentView.value = view
   await nextTick()
-  initChartsForView(view)
+  await initChartsForView(view)
 }
 
-const initChartsForView = (view) => {
-  if (view === 'dashboard') { initDashboardTrend(); initPlatformPie(); }
-  else if (view === 'keywords') { initWordCloud(); }
-  else if (view === 'graph') { initGraph(); }
+const initChartsForView = async (view) => {
+  if (view === 'dashboard') {
+    await loadDashboardStats()
+    await loadDashboardCharts()
+  } else if (view === 'keywords') {
+    await initWordCloud()
+  } else if (view === 'graph') {
+    await initGraph()
+  }
 }
 
 const initDashboardTrend = () => {
@@ -774,6 +779,10 @@ const loadDashboardStats = async () => {
 }
 
 const viewTopicDetail = async (id) => {
+  if (!id) {
+    ElMessage.error('话题ID为空，请刷新榜单后重试')
+    return
+  }
   topicDetailVisible.value = true
   try {
     const res = await request.get(`/analysis/topic/${id}`)
@@ -848,7 +857,7 @@ const renderDetailCharts = () => {
 
 let timer = null
 onMounted(() => {
-  loadDashboardStats(); loadDashboardCharts(); loadHotTopics(); initDashboardTrend(); fetchTasks();
+  loadDashboardStats(); loadDashboardCharts(); loadHotTopics(); fetchTasks();
   timer = setInterval(() => { if (currentView.value === 'task') fetchTasks() }, 3000)
 })
 watch(currentView, (newVal) => {
