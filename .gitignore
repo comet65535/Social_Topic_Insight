@@ -4,3 +4,6 @@ Social_Topic_Insight_spring/**/target/
 Social_Topic_Insight_python/**/__pycache__/
 vue/word-cloud-visualization/node_modules/
 vue/word-cloud-visualization/dist/
+*.class
+*.pyc
+*.log
