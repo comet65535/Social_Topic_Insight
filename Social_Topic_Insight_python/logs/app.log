@@ -2413,3 +2413,28 @@ pika.exceptions.ChannelWrongStateError: Channel is closed.
 2026-03-23 17:22:38,621 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 老中医离世后儿子上交460g罂粟壳 (Mode: hot) ---
 2026-03-23 17:22:45,020 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279679231561587
 2026-03-23 17:22:45,023 - [INFO] - weibo.py:69 -    >>> [Weibo] '老中医离世后儿子上交460g罂粟壳' Saved: 5
+2026-03-23 17:22:48,622 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 迪丽热巴像一幅被春天翻开的画 (Mode: hot) ---
+2026-03-23 17:22:51,217 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279651924544228
+2026-03-23 17:22:51,221 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5278518212565347
+2026-03-23 17:22:51,224 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279677938928025
+2026-03-23 17:22:51,228 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279629086821050
+2026-03-23 17:22:51,232 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279682039909501
+2026-03-23 17:22:51,232 - [INFO] - weibo.py:69 -    >>> [Weibo] '迪丽热巴像一幅被春天翻开的画' Saved: 5
+2026-03-23 17:22:54,811 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 外交部回应美国威胁伊朗 (Mode: hot) ---
+2026-03-23 17:22:58,385 - [INFO] - weibo.py:69 -    >>> [Weibo] '外交部回应美国威胁伊朗' Saved: 5
+2026-03-23 17:23:01,439 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 万茜徒手拎起190斤观众 (Mode: hot) ---
+2026-03-23 17:23:05,715 - [INFO] - weibo.py:69 -    >>> [Weibo] '万茜徒手拎起190斤观众' Saved: 5
+2026-03-23 17:23:07,825 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 伊媒称一架美国战斗机被击落 (Mode: hot) ---
+2026-03-23 17:23:10,606 - [INFO] - weibo.py:69 -    >>> [Weibo] '伊媒称一架美国战斗机被击落' Saved: 5
+2026-03-23 17:23:12,821 - [INFO] - weibo.py:44 - --- [Weibo] Crawling: 股市 (Mode: hot) ---
+2026-03-23 17:23:16,022 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279658623893789
+2026-03-23 17:23:16,030 - [INFO] - base.py:34 - [Crawler] Saved weibo - wb_5279627440296245
+2026-03-23 17:23:16,031 - [INFO] - weibo.py:69 -    >>> [Weibo] '股市' Saved: 5
+2026-03-23 17:23:19,146 - [INFO] - engine.py:95 - === Crawler Stage Completed ===
+2026-03-23 17:23:19,149 - [INFO] - manager.py:17 - --- [Analysis Task] Starting batch processing ---
+2026-03-23 17:23:19,229 - [INFO] - manager.py:31 - Processing batch of 14 posts...
+2026-03-23 17:23:21,283 - [INFO] - manager.py:79 - --- [Analysis Task] Finished. Processed 14 posts. ---
+2026-03-23 17:23:21,283 - [INFO] - clustering.py:60 - Start topic clustering...
+2026-03-23 17:23:32,162 - [INFO] - clustering.py:225 - Clustering finished. topics=9299, posts=12517
+2026-03-23 17:23:32,231 - [INFO] - engine.py:102 - === Auto Analysis Completed ===
+2026-03-23 17:23:32,235 - [INFO] - worker.py:90 - [Worker] Task finished and callback sent: 69c0ffb0c1fc4a2b96dfbf26
