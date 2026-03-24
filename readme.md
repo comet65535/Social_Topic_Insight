@@ -7,7 +7,7 @@
 - `Spring Boot` 负责 API 接口、任务调度、缓存与 LLM 回调处理
 - `Python Worker` 负责爬虫与分析流水线执行
 
-## 2. 当前架构（2026 版）
+## 2. 当前架构
 
 ```mermaid
 graph LR
