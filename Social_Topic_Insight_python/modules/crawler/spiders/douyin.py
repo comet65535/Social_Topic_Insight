@@ -58,7 +58,7 @@ class DouyinCrawler(BaseCrawler):
             
             count = 0 
             for item in video_list:
-                if count >= 5: break
+                if count >= 4: break
                 
                 if item.get('type') != 1: continue
                 aweme_info = item.get('aweme_info', {})

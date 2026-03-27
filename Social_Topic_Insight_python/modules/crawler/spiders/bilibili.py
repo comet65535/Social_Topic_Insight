@@ -57,7 +57,7 @@ class BilibiliCrawler(BaseCrawler):
 
             count = 0
             for card in cards:
-                if count >= 5: break
+                if count >= 4: break
                 try:
                     title_ele = card.ele('tag:h3', timeout=0.1)
                     if not title_ele: continue

@@ -58,9 +58,9 @@ class CrawlerEngine:
                             logger.warning(f"[{platform_name}] No hot list found.")
                             continue
 
-                        targets = hot_list[:15]
-                        if len(hot_list) > 16:
-                            targets.extend(random.sample(hot_list[15:], 5))
+                        targets = hot_list[:7]
+                        if len(hot_list) > 8:
+                            targets.extend(random.sample(hot_list[7:], 3))
 
                         for i, keyword in enumerate(targets):
                             spider.crawl(keyword, sort_type="hot")
@@ -68,9 +68,9 @@ class CrawlerEngine:
                                 cls.update_task_status(task_id, "running", log=f"[{platform_name}] Crawling: {keyword}")
 
                             if platform_name == "douyin":
-                                time.sleep(random.uniform(6, 12))
+                                time.sleep(random.uniform(6, 10))
                             else:
-                                time.sleep(random.uniform(2, 4))
+                                time.sleep(random.uniform(2, 3))
 
                     elif mode == "prediction":
                         if keywords_config:

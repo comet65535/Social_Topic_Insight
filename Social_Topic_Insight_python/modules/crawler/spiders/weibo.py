@@ -56,7 +56,7 @@ class WeiboCrawler(BaseCrawler):
 
             found_count = 0 
             for card in card_wraps:
-                if found_count >= 5: break 
+                if found_count >= 4: break 
 
                 if not card.get('mid'): continue
                 
