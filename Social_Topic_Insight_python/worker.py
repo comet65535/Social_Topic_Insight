@@ -2,6 +2,7 @@ import json
 import time
 
 import pika
+from bson import ObjectId
 
 from core.config import settings
 from core.database import db
@@ -59,6 +60,22 @@ def publish_cluster_done(channel, task_id: str) -> None:
     )
 
 
+def query_task_status(task_id: str) -> str:
+    """Read task status from MongoDB for idempotency checks."""
+    if not task_id:
+        return ""
+    try:
+        task_collection = db.get_collection("crawler_tasks")
+        query = {"_id": ObjectId(task_id)} if ObjectId.is_valid(task_id) else {"_id": task_id}
+        task_doc = task_collection.find_one(query, {"status": 1})
+        if not task_doc:
+            return ""
+        return str(task_doc.get("status", "")).strip().lower()
+    except Exception as ex:
+        logger.warning("[Worker] Failed to query task status taskId=%s, error=%s", task_id, ex)
+        return ""
+
+
 def handle_task(
     channel: pika.adapters.blocking_connection.BlockingChannel,
     method,
@@ -73,6 +90,17 @@ def handle_task(
         return
 
     task_id = payload.get("taskId") or payload.get("task_id")
+    if not task_id:
+        logger.error("[Worker] Missing taskId in message, ack and skip")
+        channel.basic_ack(delivery_tag=method.delivery_tag)
+        return
+
+    status = query_task_status(task_id)
+    if status in {"clustered", "completed"}:
+        logger.info("[Worker] Skip duplicated delivery for task=%s, current status=%s", task_id, status)
+        channel.basic_ack(delivery_tag=method.delivery_tag)
+        return
+
     task_config = {
         "task_id": task_id,
         "name": payload.get("name"),
